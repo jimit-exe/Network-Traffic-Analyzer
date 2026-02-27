@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Network Traffic Analyzer</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <header>
+    <span class="logo">&#128268;</span>
+    <h1>Network Traffic Analyzer</h1>
+    <span id="status-badge" class="badge badge-idle">Idle</span>
+  </header>
+
+  <main>
+    <!-- Controls -->
+    <section class="controls card">
+      <div class="control-row">
+        <label for="iface-select">Interface</label>
+        <select id="iface-select"></select>
+
+        <label for="filter-input">BPF Filter</label>
+        <input id="filter-input" type="text" placeholder="e.g. tcp port 80" />
+
+        <button id="btn-start" class="btn btn-green">&#9654; Start</button>
+        <button id="btn-stop" class="btn btn-red" disabled>&#9646;&#9646; Stop</button>
+        <button id="btn-clear" class="btn btn-gray">&#128465; Clear</button>
+      </div>
+    </section>
+
+    <!-- Stats bar -->
+    <section class="stats-bar card">
+      <div class="stat-item">
+        <span class="stat-label">Total Packets</span>
+        <span id="stat-total" class="stat-value">0</span>
+      </div>
+      <div id="proto-stats" class="proto-stats"></div>
+    </section>
+
+    <!-- Packet table -->
+    <section class="table-section card">
+      <table id="packet-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Time</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Protocol</th>
+            <th>Length</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+        <tbody id="packet-tbody"></tbody>
+      </table>
+      <div id="empty-msg" class="empty-msg">No packets captured yet. Press <strong>Start</strong> to begin.</div>
+    </section>
+
+    <!-- Packet detail panel -->
+    <section id="detail-panel" class="detail-panel card hidden">
+      <h3>Packet Detail</h3>
+      <div id="detail-content"></div>
+    </section>
+  </main>
+
+  <script src="/static/js/socket.io.min.js"></script>
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

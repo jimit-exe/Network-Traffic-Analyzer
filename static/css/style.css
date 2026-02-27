@@ -1,0 +1,211 @@
+/* ── Reset & Base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 13px;
+  background: #0d1117;
+  color: #c9d1d9;
+  min-height: 100vh;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────── */
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+}
+header .logo { font-size: 22px; }
+header h1 { font-size: 16px; font-weight: 600; flex: 1; }
+
+/* ── Badges ──────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.badge-idle    { background: #21262d; color: #8b949e; }
+.badge-running { background: #1f6feb; color: #fff; animation: pulse 1.4s infinite; }
+.badge-stopped { background: #388bfd22; color: #58a6ff; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .55; }
+}
+
+/* ── Layout / Cards ──────────────────────────────────────────────────── */
+main { display: flex; flex-direction: column; gap: 10px; padding: 14px 20px; }
+
+.card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+/* ── Controls ────────────────────────────────────────────────────────── */
+.control-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.control-row label { color: #8b949e; white-space: nowrap; }
+
+select, input[type="text"] {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  color: #c9d1d9;
+  padding: 5px 10px;
+  font-size: 13px;
+  outline: none;
+}
+select:focus, input[type="text"]:focus {
+  border-color: #388bfd;
+}
+#filter-input { min-width: 200px; flex: 1; }
+
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+.btn {
+  padding: 5px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.btn:disabled { opacity: .35; cursor: not-allowed; }
+.btn:not(:disabled):hover { opacity: .82; }
+.btn-green { background: #238636; color: #fff; }
+.btn-red   { background: #da3633; color: #fff; }
+.btn-gray  { background: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
+
+/* ── Stats bar ───────────────────────────────────────────────────────── */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+}
+.stat-item { display: flex; align-items: center; gap: 6px; }
+.stat-label { color: #8b949e; }
+.stat-value { font-weight: 700; color: #f0f6fc; font-size: 15px; }
+
+.proto-stats { display: flex; flex-wrap: wrap; gap: 8px; }
+.proto-badge {
+  padding: 2px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ── Packet Table ────────────────────────────────────────────────────── */
+.table-section { padding: 0; overflow: hidden; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+thead th {
+  background: #21262d;
+  color: #8b949e;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+tbody tr {
+  border-bottom: 1px solid #21262d;
+  cursor: pointer;
+  transition: background .1s;
+}
+tbody tr:hover, tbody tr.selected { background: #1c2128; }
+tbody td { padding: 6px 10px; white-space: nowrap; max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+
+/* Protocol colours */
+.proto-TCP   { color: #58a6ff; }
+.proto-UDP   { color: #d2a8ff; }
+.proto-HTTP  { color: #79c0ff; }
+.proto-HTTPS { color: #56d364; }
+.proto-DNS   { color: #f2cc60; }
+.proto-ICMP  { color: #ffa657; }
+.proto-ARP   { color: #ff7b72; }
+.proto-SSH   { color: #3fb950; }
+.proto-FTP   { color: #ff9bce; }
+.proto-SMTP  { color: #bc8cff; }
+.proto-IPv6  { color: #a5d6ff; }
+.proto-Other { color: #8b949e; }
+
+/* Badge colours mirror proto colours */
+.pbadge-TCP   { background: #58a6ff22; color: #58a6ff; }
+.pbadge-UDP   { background: #d2a8ff22; color: #d2a8ff; }
+.pbadge-HTTP  { background: #79c0ff22; color: #79c0ff; }
+.pbadge-HTTPS { background: #56d36422; color: #56d364; }
+.pbadge-DNS   { background: #f2cc6022; color: #f2cc60; }
+.pbadge-ICMP  { background: #ffa65722; color: #ffa657; }
+.pbadge-ARP   { background: #ff7b7222; color: #ff7b72; }
+.pbadge-SSH   { background: #3fb95022; color: #3fb950; }
+.pbadge-FTP   { background: #ff9bce22; color: #ff9bce; }
+.pbadge-SMTP  { background: #bc8cff22; color: #bc8cff; }
+.pbadge-IPv6  { background: #a5d6ff22; color: #a5d6ff; }
+.pbadge-Other { background: #8b949e22; color: #8b949e; }
+
+.empty-msg {
+  text-align: center;
+  padding: 40px;
+  color: #484f58;
+}
+
+/* ── Detail Panel ────────────────────────────────────────────────────── */
+.detail-panel h3 {
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #8b949e;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+.detail-field { display: flex; flex-direction: column; gap: 2px; }
+.detail-field .df-label { font-size: 10px; color: #484f58; text-transform: uppercase; }
+.detail-field .df-value { font-size: 13px; color: #f0f6fc; word-break: break-all; }
+
+.hidden { display: none !important; }
+
+/* ── Toast notifications ─────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #21262d;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .25s, transform .25s;
+  z-index: 100;
+}
+.toast.toast-visible { opacity: 1; transform: translateY(0); }
+.toast.toast-error   { border-color: #da3633; color: #ff7b72; }
